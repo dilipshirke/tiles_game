@@ -24,10 +24,12 @@ tilePosOffset = [320, 120]
 pygame.init()
 font = pygame.font.SysFont("Verdana", 20)
 font_small = pygame.font.SysFont("Verdana", 12)
+font_tiny = pygame.font.SysFont("Verdana", 6)
 matched = font.render("YOU WON!", True, GREEN)
 tryagain = font.render("TRY AGAIN!", True, RED)
 atbeginning = font_small.render('At the beginning : ', True, BLACK)
 newGame = font_small.render('NewGame', True, GREEN)
+lost = font_small.render('Lost', True, RED)
 replayImage = pygame.image.load("restartGame.png")
 reboot = pygame.image.load("newGame.png")
 
@@ -111,6 +113,9 @@ def display(surface, frame0_tiles, currentFrame, flag, score, bestscore, boundri
     surface.fill(WHITE)
     surface.blit(replayImage, (SCREEN_WIDTH - 32, 10))
     surface.blit(reboot, (SCREEN_WIDTH - 64, 10))
+    # Add labels under the buttons
+    surface.blit(font_tiny.render("Replay", True, BLACK), (SCREEN_WIDTH - 30, 50))
+    surface.blit(font_tiny.render("New Game", True, BLACK), (SCREEN_WIDTH - 64, 50))
     displayTile0(surface, frame0_tiles, "medium")
     displayCurrentFrame(surface, currentFrame, boundries)
     displayRefBar(surface)
@@ -120,6 +125,7 @@ def display(surface, frame0_tiles, currentFrame, flag, score, bestscore, boundri
         surface.blit(newGame, (320, 390))
     elif flag == -1:
         surface.blit(tryagain, (320, 370))
+        surface.blit(lost, (320, 390))
     pygame.display.update()
     FramePerSec.tick(FPS)
 
